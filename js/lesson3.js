@@ -2,30 +2,33 @@
  * Created by Michael on 25.04.2017.
  */
 
-$(".btn-info").click(function() {
-  if ($(".name").val().length === 0) {
-    return;
-  }
+$(document).ready(function() {
+  $(".btn-info").click(function() {
+    if ($(".name").val().length === 0) {
+      return;
+    }
 
-  if (!$("ul").is(".list")) {
-    $("body").append(
-      $("<ul/>", { class: "list", text: "List:" })
-    );
-  }
+    if (!$("ul").is(".list-group")) {
+      $(".container").append(
+        $("<ul/>", { class: "list-group", text: "List:" }).css({"font-size": "22px"})
+      );
+    }
 
-  if ($("ul").is(".list")) {
-    $(".list").append(
-      $("<li/>", { class: "item" }).text(
-        " " + $(".name").val() + " " + $(".count").val() + ";").prepend(
-          $("<input/>", { type: "checkbox", class: "bought" })
-      )
-    );
-  }
+    if ($("ul").is(".list-group")) {
+      $(".list-group").append(
+        $("<li/>", { class: "list-group-item" }).css("font-size", "16px").text(
+          " " + $(".name").val()).append(
+            $("<span/>", { class: "badge" }).text($(".count").val()))
+          .prepend($("<input/>", { type: "checkbox", class: "bought" })
+        )
+      );
+    }
 
-  if ($("input").is(".bought")) {
-    $(".bought").click(function() {
-      ($(this).prop("checked")) ? $(this).closest(".item").css("text-decoration", "line-through") :
-        $(this).closest(".item").css("text-decoration", "none");
-    });
-  }
+    if ($("input").is(".bought")) {
+      $(".bought").click(function() {
+        ($(this).prop("checked")) ? $(this).closest(".list-group-item").css("text-decoration", "line-through") :
+          $(this).closest(".list-group-item").css("text-decoration", "none");
+      });
+    }
+  });
 });
